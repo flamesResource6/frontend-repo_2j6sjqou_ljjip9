@@ -1,26 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import MenuShowcase from './components/MenuShowcase'
+import Reservation from './components/Reservation'
+import ChefTimeline from './components/ChefTimeline'
+import ChatSidebar from './components/ChatSidebar'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [chatOpen, setChatOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.backgroundColor = '#000'
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-black text-white font-sans">
+      <Navbar onChatToggle={() => setChatOpen(true)} />
+      <main className="pt-20">
+        <Hero />
+        <MenuShowcase />
+        <Reservation />
+        <ChefTimeline />
+      </main>
+      <ChatSidebar open={chatOpen} onClose={() => setChatOpen(false)} />
+      <footer className="bg-black border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-10 flex items-center justify-between text-sm text-white/60">
+          <p>© {new Date().getFullYear()} Étoile Noire — All Rights Reserved</p>
+          <p className="text-yellow-300">Open Tue–Sun • 17:30–22:00</p>
         </div>
-      </div>
+      </footer>
     </div>
   )
 }
